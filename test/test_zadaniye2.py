@@ -24,7 +24,6 @@ def test_zadaniye2(app):
 def test_zadaniye2_empty(app):
     app.session.login("admin", "secret")
 
-    # Создаем пустую группу
     app.group.create()
     app.fill_forms(Group("", "", ""))
     app.submitting()
