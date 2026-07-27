@@ -2,28 +2,19 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
-from fixture.Session import SessionHelper
-from fixture.group import GroupHelper
 
+class GroupHelper:
 
-class Application:
-    def __init__(self):
-        service = Service(ChromeDriverManager().install())
-        self.wd = webdriver.Chrome(service=service)
-        self.vars = {}
-        self.wd.implicitly_wait(10)
-        self.session = SessionHelper(self)
-        self.group = GroupHelper(self)
-
-    def open_home_page(self):
-        self.wd.get("http://localhost/addressbook/index.php")
+    def __init__(self, app):
+        self.app = app
 
     def open_groups(self):
-        self.wd.find_element(By.LINK_TEXT, "groups").click()
+        wd = self.app.wd
+        self.app.wd.find_element(By.LINK_TEXT, "groups").click()
 
-    def new_group_creation(self):
+    def create(self):
         self.open_groups()
-        self.wd.find_element(By.NAME, "new").click()
+        self.app.wd.find_element(By.NAME, "new").click()
 
     def fill_forms(self, group):
         # Название группы
@@ -49,6 +40,3 @@ class Application:
 
     def return_to_group_page(self):
         self.wd.find_element(By.LINK_TEXT, "group page").click()
-
-    def destroy(self):
-        self.wd.quit()
