@@ -10,77 +10,30 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 
+from application import Application
 from group import Group
 
 
-class TestZadaniye2():
-    def setup_method(self, method):
-        self.wd = webdriver.Firefox()
-        self.vars = {}
+@pytest.fixture
+def app(request):
+    fixture = Application()
+    request.addfinalizer(fixture.destroy)
+    return fixture
 
-    def teardown_method(self, method):
-        self.wd.quit()
 
-# было изначально
-    def test_zadaniye2(self):
-        self.open_home_page()
-        self.login("admin", "secret")
-        self.open_groups()
-        self.new_group_creation()
-        self.fill_forms(Group("zadaniye2", "header2", "footer2"))
-        self.submitting()
-        self.return_to_group_page()
-        self.logout()
+def test_zadaniye2(app):
+    app.login("admin", "secret")
+    app.new_group_creation()
+    app.fill_forms(Group("zadaniye2", "header2", "footer2"))
+    app.submitting()
+    app.return_to_group_page()
+    app.logout()
 
-    def test_zadaniye2_empty(self):
-        self.open_home_page()
-        self.login("admin", "secret")
-        self.open_groups()
-        self.new_group_creation()
-        self.fill_forms(Group("", "", ""))
-        self.submitting()
-        self.return_to_group_page()
-        self.logout()
 
-    def logout(self):
-        # logout
-        self.wd.find_element(By.LINK_TEXT, "Logout").click()
-
-    def return_to_group_page(self):
-        # return group page
-        self.wd.find_element(By.LINK_TEXT, "group page").click()
-
-    def submitting(self):
-        # submit
-        self.wd.find_element(By.NAME, "submit").click()
-
-    def fill_forms(self, group):
-        # fill forms
-        self.wd.find_element(By.NAME, "group_name").click()
-        self.wd.find_element(By.NAME, "group_name").send_keys("%s" % group.groupName)
-        self.wd.find_element(By.NAME, "group_header").click()
-        self.wd.find_element(By.NAME, "group_header").send_keys("%s" % group.headerName)
-        self.wd.find_element(By.NAME, "group_footer").click()
-        self.wd.find_element(By.NAME, "group_footer").send_keys("%s" % group.footerName)
-
-    def new_group_creation(self):
-        # new group creation
-        self.wd.find_element(By.NAME, "new").click()
-
-    def open_groups(self):
-        # open groups
-        self.wd.find_element(By.LINK_TEXT, "groups").click()
-
-    def login(self, username, password):
-        # login
-        self.wd.set_window_size(1052, 841)
-        self.wd.find_element(By.NAME, "user").send_keys("%s" % username)
-        self.wd.find_element(By.CSS_SELECTOR, "html").click()
-        self.wd.find_element(By.NAME, "pass").click()
-        self.wd.find_element(By.NAME, "pass").send_keys("%s" % password)
-        self.wd.find_element(By.CSS_SELECTOR, "input:nth-child(7)").click()
-
-    def open_home_page(self):
-        # homepage
-        self.wd.get("http://localhost/addressbook/index.php")
-
+def test_zadaniye2_empty(app):
+    app.login("admin", "secret")
+    app.new_group_creation()
+    app.fill_forms(Group("", "", ""))
+    app.submitting()
+    app.return_to_group_page()
+    app.logout()
