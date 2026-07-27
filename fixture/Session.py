@@ -21,5 +21,5 @@ class SessionHelper:
         wd.find_element(By.CSS_SELECTOR, "input:nth-child(7)").click()
 
     def logout(self):
-        wd = self.app.wd  # Получаем WebDriver
+        wd = self.app.wd
         wd.find_element(By.LINK_TEXT, "Logout").click()
