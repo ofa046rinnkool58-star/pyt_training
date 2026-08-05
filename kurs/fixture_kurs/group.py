@@ -10,26 +10,26 @@ class GroupHelper:
         wd = self.app.wd
         wd.find_element(By.LINK_TEXT, "groups").click()
 
-    def create(self):
-        self.open_groups()
+    def new_group_creation(self):
         wd = self.app.wd
         wd.find_element(By.NAME, "new").click()
 
     def fill_forms(self, group):
+        wd = self.app.wd
         # Название группы
-        name_field = self.app.wd.find_element(By.NAME, "group_name")
+        name_field = wd.find_element(By.NAME, "group_name")
         name_field.click()
         name_field.clear()
         name_field.send_keys(group.groupName)
 
         # Заголовок
-        header_field = self.app.wd.find_element(By.NAME, "group_header")
+        header_field = wd.find_element(By.NAME, "group_header")
         header_field.click()
         header_field.clear()
         header_field.send_keys(group.headerName)
 
         # Футер
-        footer_field = self.app.wd.find_element(By.NAME, "group_footer")
+        footer_field = wd.find_element(By.NAME, "group_footer")
         footer_field.click()
         footer_field.clear()
         footer_field.send_keys(group.footerName)
