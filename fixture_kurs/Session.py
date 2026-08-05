@@ -1,3 +1,4 @@
+# делает только логин и логаут
 from selenium.webdriver.common.by import By
 
 

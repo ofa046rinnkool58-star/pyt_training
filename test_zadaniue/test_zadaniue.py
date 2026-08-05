@@ -1,6 +1,6 @@
 import pytest
-from fixture.ContactHelper import ContactHelper
-from model.contact import Contact
+from fixture_zadaniue.ContactHelper import ContactHelper
+from model_zadaniue.contact import Contact
 
 
 @pytest.fixture
