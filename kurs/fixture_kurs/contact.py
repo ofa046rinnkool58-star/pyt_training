@@ -5,16 +5,10 @@ class ContactHelper:
     def __init__(self, app):
         self.app = app
 
-    def open_page(self):
+    def create_contact(self, contact):
         wd = self.app.wd
         wd.find_element(By.LINK_TEXT, "groups").click()
-
-    def new_contact(self):
-        wd = self.app.wd
         wd.find_element(By.LINK_TEXT, "add new").click()
-
-    def fill_contact(self, contact):
-        wd = self.app.wd
         field = wd.find_element(By.NAME, "firstname")
         field.click()
         field.clear()
@@ -70,10 +64,5 @@ class ContactHelper:
         field.clear()
         field.send_keys(contact.email3)
 
-    def submit_contact(self):
-        wd = self.app.wd
         wd.find_element(By.CSS_SELECTOR, "input:nth-child(71)").click()
-
-    def return_to_home_page(self):
-        wd = self.app.wd
         wd.find_element(By.LINK_TEXT, "home").click()

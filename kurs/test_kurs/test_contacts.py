@@ -1,20 +1,9 @@
-import pytest
-from kurs.fixture_kurs.application import Application
 from kurs.model_kurs.contact import Contact
-
-
-@pytest.fixture
-def app(request):
-    fixture = Application()
-    request.addfinalizer(fixture.destroy)
-    return fixture
 
 
 def test_contacts(app):
     app.session.login("admin", "secret")
-    app.contact.open_page()
-    app.contact.new_contact()
-    app.contact.fill_contact(Contact(firstname="firstName",
+    app.contact.create_contact(Contact(firstname="firstName",
         middlename="middlename",
         lastname="lastname",
         nickname="nickname",
@@ -25,16 +14,12 @@ def test_contacts(app):
         email="mail1.ru",
         email2="mail2.ru",
         email3="mail3.ru"))
-    app.contact.submit_contact()
-    app.contact.return_to_home_page()
     app.session.logout()
 
 
 def test_contacts_empty(app):
     app.session.login("admin", "secret")
-    app.contact.open_page()
-    app.contact.new_contact()
-    app.contact.fill_contact(Contact(firstname="",
+    app.contact.create_contact(Contact(firstname="",
         middlename="",
         lastname="",
         nickname="",
@@ -45,6 +30,4 @@ def test_contacts_empty(app):
         email="",
         email2="",
         email3=""))
-    app.contact.submit_contact()
-    app.contact.return_to_home_page()
     app.session.logout()
