@@ -1,16 +1,16 @@
 import pytest
-from zadaniue.fixture_zadaniue.applicationContact import ApplicationContact
-from zadaniue.model_zadaniue.contact import Contact
+from kurs.fixture_kurs.application import Application
+from kurs.model_kurs.contact import Contact
 
 
 @pytest.fixture
 def app(request):
-    fixture = ApplicationContact()
+    fixture = Application()
     request.addfinalizer(fixture.destroy)
     return fixture
 
 
-def test_zadaniye3(app):
+def test_contacts(app):
     app.session.login("admin", "secret")
     app.contact.open_page()
     app.contact.new_contact()
@@ -30,7 +30,7 @@ def test_zadaniye3(app):
     app.session.logout()
 
 
-def test_zadaniye3_empty(app):
+def test_contacts_empty(app):
     app.session.login("admin", "secret")
     app.contact.open_page()
     app.contact.new_contact()

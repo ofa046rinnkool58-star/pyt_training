@@ -3,6 +3,7 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from kurs.fixture_kurs.Session import SessionHelper
 from kurs.fixture_kurs.group import GroupHelper
+from kurs.fixture_kurs.contact import ContactHelper
 
 
 class Application:
@@ -13,7 +14,7 @@ class Application:
         self.wd.implicitly_wait(10)
         self.session = SessionHelper(self) # делает только логин и логаут
         self.group = GroupHelper(self) # делает все кроме логина и логаута
-
+        self.contact = ContactHelper(self)
     def open_home_page(self):
         self.wd.get("http://localhost/addressbook/index.php")
 

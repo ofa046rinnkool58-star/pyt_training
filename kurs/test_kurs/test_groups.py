@@ -10,7 +10,7 @@ def app(request):
     return fixture
 
 
-def test_zadaniye2(app):
+def test_groups(app):
     app.session.login("admin", "secret")
 
     app.group.open_groups()
@@ -22,7 +22,7 @@ def test_zadaniye2(app):
     app.session.logout()
 
 
-def test_zadaniye2_empty(app):
+def test_groups_empty(app):
     app.session.login("admin", "secret")
 
     app.group.create()
