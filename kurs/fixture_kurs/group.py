@@ -1,4 +1,3 @@
-
 from selenium.webdriver.common.by import By
 
 class GroupHelper:
@@ -36,3 +35,24 @@ class GroupHelper:
         #submit deletion
         wd.find_element(By.NAME, "delete").click()
         wd.find_element(By.LINK_TEXT, "group page").click()
+
+    def change_group(self, group):
+        wd = self.app.wd
+        wd.find_element(By.LINK_TEXT, "groups").click()
+        wd.find_element(By.NAME, "selected[]").click()
+        wd.find_element(By.NAME, "edit").click()
+        name_field = wd.find_element(By.NAME, "group_name")
+        name_field.click()
+        name_field.clear()
+        name_field.send_keys(group.groupName)
+        # Заголовок
+        header_field = wd.find_element(By.NAME, "group_header")
+        header_field.click()
+        header_field.clear()
+        header_field.send_keys(group.headerName)
+        # Футер
+        footer_field = wd.find_element(By.NAME, "group_footer")
+        footer_field.click()
+        footer_field.clear()
+        footer_field.send_keys(group.footerName)
+        wd.find_element(By.NAME, "update").click()

@@ -11,6 +11,7 @@ class SessionHelper:
         self.app.open_home_page()
         wd.set_window_size(1052, 841)
 
+
         user_field = wd.find_element(By.NAME, "user")
         user_field.clear()
         user_field.send_keys(username)
