@@ -1,7 +1,6 @@
 from kurs.model_kurs.group import Group
 
 
-
 def test_groups(app):
     app.session.login("admin", "secret")
     app.group.create(Group("zadaniye2", "header2", "footer2"))
